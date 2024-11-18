@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:39 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/18 02:41:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/18 19:35:42 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ ScalarConverter  &ScalarConverter::operator=(const ScalarConverter &other)
     std::cout << "ScalarConverter copy assignment operator called" << std::endl;
     (void)other;
     return *this;
+}
+
+static void	setInputVar(std::string input, type )
+{
+
 }
 
 static type inputType(std::string input)
