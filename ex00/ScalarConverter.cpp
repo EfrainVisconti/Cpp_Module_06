@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:39 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/18 01:36:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/18 02:41:48 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,37 @@ ScalarConverter  &ScalarConverter::operator=(const ScalarConverter &other)
 
 static type inputType(std::string input)
 {
-    //double d;
-    //std::istringstream doubleStream(input) >> d;
-
-    if (input.size() == 3 && input[0] == '\'' && input[2] == '\'')
-        return CHAR;
-
     int i;
     std::istringstream intStream(input);
     intStream >> i;
     if (!intStream.fail() && intStream.eof())
         return INT;
 
-    float f;
-    std::istringstream floatStream(input.substr(0, input.length() - 1));
-    floatStream >> f;
-    if (*(input.end()) == 'f' && !intStream.fail() && intStream.eof())
-        return FLOAT;
+    if (input == "nan" || input == "+inf" || input == "-inf"
+        || input == "nanf" || input == "+inff" || input == "-inff")
+        return PSEUDOLITERAL;
+
+    if (input.size() == 3 && input[0] == '\'' && input[2] == '\'')
+        return CHAR;
+
+    if (*(input.end() - 1) == 'f' && input.find('.') != std::string::npos)
+    {
+        float f;
+        std::string nbr = input.substr(0, input.length() - 1);
+        std::istringstream floatStream(nbr);
+        floatStream >> f;
+        if (!floatStream.fail() && floatStream.eof())
+            return FLOAT;
+    }
+
+    if (input.find('.') != std::string::npos)
+    {
+        double d;
+        std::istringstream doubleStream(input);
+        doubleStream >> d;
+        if (!doubleStream.fail() && doubleStream.eof())
+        return DOUBLE;
+    }
 
     return ERROR;
 }
