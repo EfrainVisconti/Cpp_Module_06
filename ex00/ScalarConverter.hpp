@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/18 18:02:38 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:48:29 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,24 @@
 
 # include <iostream>
 # include <sstream>
+# include <iomanip>
 
 enum type { CHAR, INT, FLOAT, DOUBLE, PSEUDOLITERAL, ERROR };
 
 class ScalarConverter
 {
     private:
-		static char		charVar;
-		static int		intVar;
-		static float	floatVar;
-		static double	doubleVar;
-
         ScalarConverter();
         ScalarConverter(const ScalarConverter &other); //Copy constructor
         ~ScalarConverter();
         ScalarConverter  &operator=(const ScalarConverter &other); //Copy assignment operator
 
     public:
+		static char		_charVar;
+		static int		_intVar;
+		static float	_floatVar;
+		static double	_doubleVar;
+
         static void convert(const std::string input);
 };
 
