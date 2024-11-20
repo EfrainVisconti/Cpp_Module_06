@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:39 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/19 19:34:15 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:13:43 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,60 +116,71 @@ static type inputType(std::string input)
     return ERROR;
 }
 
+/* Prints the casts when the input was of type char, following the format required in the subject */
 static void	fromChar(char c)
 {
 	std::cout << "char: '" << c << "'" << std::endl;
 	std::cout << "int: " << static_cast<int>(c) << std::endl;
-	std::cout << std::setprecision(1) << std::fixed;
+	std::cout << std::fixed << std::setprecision(1);
 	std::cout << "float: " << static_cast<float>(c) << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(c) << std::endl;
 }
 
+/* Prints the casts when the input was of type int, following the format required in the subject */
 static void	fromInt(int i)
 {
-	if (std::isprint(static_cast<unsigned char>(i)))
+	if (i >= 32 && i <= 126)
 		std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
 	std::cout << "int: " << i << std::endl;
-	std::cout << std::setprecision(1) << std::fixed;
+	std::cout << std::fixed << std::setprecision(1);
 	std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(i) << std::endl;
 }
 
+/* Prints the casts when the input was of type float, following the format required in the subject */
 static void	fromFloat(float f)
 {
-	if (std::isprint(static_cast<unsigned char>(f)))
+	if (f >= 32 && f <= 126)
 		std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
 	std::cout << "int: " << static_cast<int>(f) << std::endl;
-	std::cout << std::fixed;
+	std::cout << std::fixed << std::setprecision(1);
 	std::cout << "float: " << f << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(f) << std::endl;
 }
 
+/* Prints the casts when the input was of type double, following the format required in the subject */
 static void	fromDouble(double d)
 {
-	if (std::isprint(static_cast<unsigned char>(d)))
+	if (d >= 32 && d <= 126)
 		std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
 	std::cout << "int: " << static_cast<int>(d) << std::endl;
-	std::cout << std::fixed;
+	std::cout << std::fixed << std::setprecision(1);
 	std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
 	std::cout << "double: " << d << std::endl;
 }
 
+/* Prints the casts when special inputs occurs (called pseudoliterals), following the format required in the subject */
 static void	fromPseudoliteral(std::string input)
 {
 	std::cout << "char: impossible" << std::endl;
 	std::cout << "int: impossible" << std::endl;
-	std::cout << "float: " << input << "f" << std::endl;
+	if (input == "nanf" || input == "+inff" || input == "-inff")
+	{
+		std::cout << "float: " << input << std::endl;
+		std::cout << "double: " << input.substr(0, input.length() - 1) << std::endl;
+		return ;
+	}
+	std::cout << "float: " << input + "f" << std::endl;
 	std::cout << "double: " << input << std::endl;
-	//TO DO PSEUDOLITERAL FLOAT
 }
 
+/* Main static method required for ScalarConverter class */
 void    ScalarConverter::convert(const std::string input)
 {
     switch (inputType(input))
@@ -190,6 +201,7 @@ void    ScalarConverter::convert(const std::string input)
 			fromPseudoliteral(input);
 			break ;
 		default:
-			std::cout << "Error: invalid input value" << std::endl;
+			std::cout << "Error: invalid input" << std::endl;
+			std::cout << "Try formats explained in the subject" << std::endl;
 	}
 }
