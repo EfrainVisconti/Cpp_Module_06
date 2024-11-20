@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:39 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/20 18:49:09 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:13:43 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	floatTypeCase(std::string input)
     floatStream >> f;
     if (!floatStream.fail() && floatStream.eof())
 	{
-		if (f >= std::numeric_limits<float>::min() && f <= std::numeric_limits<float>::max())
+		if (f >= -std::numeric_limits<float>::max() && f <= std::numeric_limits<float>::max())
 		{
 			ScalarConverter::_floatVar = f;
 			return true;
