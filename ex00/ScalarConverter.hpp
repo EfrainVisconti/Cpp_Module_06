@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/19 18:48:29 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:30:21 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 # include <sstream>
 # include <iomanip>
+# include <limits>
 
 enum type { CHAR, INT, FLOAT, DOUBLE, PSEUDOLITERAL, ERROR };
 

@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 21:21:39 by codespace         #+#    #+#             */
-/*   Updated: 2024/11/20 16:13:43 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:49:09 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ static bool	floatTypeCase(std::string input)
     floatStream >> f;
     if (!floatStream.fail() && floatStream.eof())
 	{
-		ScalarConverter::_floatVar = f;
-		return true;
+		if (f >= std::numeric_limits<float>::min() && f <= std::numeric_limits<float>::max())
+		{
+			ScalarConverter::_floatVar = f;
+			return true;
+		}
 	}
 	return false;
 }
@@ -146,7 +149,10 @@ static void	fromFloat(float f)
 		std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
-	std::cout << "int: " << static_cast<int>(f) << std::endl;
+	if (f >= std::numeric_limits<int>::min() && f <= std::numeric_limits<int>::max())
+		std::cout << "int: " << static_cast<int>(f) << std::endl;
+	else
+		std::cout << "int: impossible" << std::endl;
 	std::cout << std::fixed << std::setprecision(1);
 	std::cout << "float: " << f << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(f) << std::endl;
@@ -159,7 +165,10 @@ static void	fromDouble(double d)
 		std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
 	else
 		std::cout << "char: Non displayable" << std::endl;
-	std::cout << "int: " << static_cast<int>(d) << std::endl;
+	if (d >= std::numeric_limits<int>::min() && d <= std::numeric_limits<int>::max())
+		std::cout << "int: " << static_cast<int>(d) << std::endl;
+	else
+		std::cout << "int: impossible" << std::endl;
 	std::cout << std::fixed << std::setprecision(1);
 	std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
 	std::cout << "double: " << d << std::endl;
@@ -180,7 +189,13 @@ static void	fromPseudoliteral(std::string input)
 	std::cout << "double: " << input << std::endl;
 }
 
-/* Main static method required for ScalarConverter class */
+/* Main static method required for ScalarConverter class
+WARNING: if input uses a specific format type (as explained in subject) but has a
+number out of that range, it will gives you an error message. For example:
+-'ñ' (valid char format, out of ASCII printable characters range)
+-3.5e39f (valid float format, value out of float range).
+-2147483648 (valid int format, value out of int range).
+-1.8e308 (valid double format, value out of double range).*/
 void    ScalarConverter::convert(const std::string input)
 {
     switch (inputType(input))
@@ -201,7 +216,7 @@ void    ScalarConverter::convert(const std::string input)
 			fromPseudoliteral(input);
 			break ;
 		default:
-			std::cout << "Error: invalid input" << std::endl;
-			std::cout << "Try formats explained in the subject" << std::endl;
+			std::cout << "Error: invalid format or " << std::endl;
+			std::cout << "value out of range for input type" << std::endl;
 	}
 }
