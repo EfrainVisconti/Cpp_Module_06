@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:10:45 by eviscont          #+#    #+#             */
-/*   Updated: 2024/11/21 17:22:54 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:29:39 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,55 @@ Base*	generate(void)
 	return result;
 }
 
-// void	identify(Base* p)
-// {
-// 	Base *a = new A();
-// 	B *b = new B();
-// 	C *c = new C();
+void	identify(Base* p)
+{
+	if (!p)
+		std::cout << "NULL" << std::endl;
+	else if (dynamic_cast<A*>(p))
+		std::cout << "A" << std::endl;
+	else if (dynamic_cast<B*>(p))
+		std::cout << "B" << std::endl;
+	else if (dynamic_cast<C*>(p))
+		std::cout << "C" << std::endl;
+	else
+		std::cout << "Unknown type" << std::endl;
+}
 
-// 	if (dynamic_cast<a*>(a))
-// 		std::cout << "hola" << std::endl;
-// }
-
-// void	identify(Base& p)
-// {
-
-// }
+void	identify(Base& p)
+{
+	if (dynamic_cast<A*>(&p))
+		std::cout << "A" << std::endl;
+	else if (dynamic_cast<B*>(&p))
+		std::cout << "B" << std::endl;
+	else if (dynamic_cast<C*>(&p))
+		std::cout << "C" << std::endl;
+	else
+		std::cout << "Unknown type" << std::endl;
+}
 
 int main()
 {
-	Base *test;
-	test = generate();
+	std::cout << "Testing generate function" << std::endl;
+	Base *test = generate();
+	identify(test);
+	std::cout << "Testing identify functions" << std::endl;
+	std::cout << "Case A:" << std::endl;
+	Base *test1 = new A();
+	identify(test1);
+	identify(*test1);
+	std::cout << "Case B:" << std::endl;
+	Base *test2 = new B();
+	identify(test2);
+	identify(*test2);
+	std::cout << "Case C:" << std::endl;
+	Base *test3 = new C();
+	identify(test3);
+	identify(*test3);
+	std::cout << "Case NULL:" << std::endl;
+	identify(NULL);
+	delete test;
+	delete test1;
+	delete test2;
+	delete test3;
 	return 0;
 }
