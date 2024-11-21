@@ -6,17 +6,23 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:10:45 by eviscont          #+#    #+#             */
-/*   Updated: 2024/11/21 18:29:39 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:08:21 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <exception>
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
+
+class InvalidCastException : public std::exception
+{
+
+};
 
 Base*	generate(void)
 {
@@ -49,14 +55,40 @@ void	identify(Base* p)
 
 void	identify(Base& p)
 {
-	if (dynamic_cast<A*>(&p))
-		std::cout << "A" << std::endl;
-	else if (dynamic_cast<B*>(&p))
-		std::cout << "B" << std::endl;
-	else if (dynamic_cast<C*>(&p))
-		std::cout << "C" << std::endl;
-	else
-		std::cout << "Unknown type" << std::endl;
+	try
+	{
+		if (A* a = dynamic_cast<A*>(&p))
+		{
+			std::cout << "A" << std::endl;
+			return;
+        }
+		else
+            throw InvalidCastException();
+	}
+	catch (const InvalidCastException&) {}
+	try
+	{
+        if (B* b = dynamic_cast<B*>(&p))
+		{
+			std::cout << "B" << std::endl;
+            return;
+		}
+		else
+			throw InvalidCastException();
+	}
+	catch (const InvalidCastException&) {}
+	try
+	{
+		if (C* c = dynamic_cast<C*>(&p))
+		{
+			std::cout << "C" << std::endl;
+			return;
+		}
+		else
+			throw InvalidCastException();
+	}
+	catch (const InvalidCastException&) {}
+	std::cout << "Unknown type" << std::endl;
 }
 
 int main()
