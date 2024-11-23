@@ -6,7 +6,7 @@
 /*   By: eviscont <eviscont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:10:45 by eviscont          #+#    #+#             */
-/*   Updated: 2024/11/21 19:08:21 by eviscont         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:34:14 by eviscont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	identify(Base& p)
 {
 	try
 	{
-		if (A* a = dynamic_cast<A*>(&p))
+		if (dynamic_cast<A*>(&p))
 		{
 			std::cout << "A" << std::endl;
 			return;
@@ -68,7 +68,7 @@ void	identify(Base& p)
 	catch (const InvalidCastException&) {}
 	try
 	{
-        if (B* b = dynamic_cast<B*>(&p))
+        if (dynamic_cast<B*>(&p))
 		{
 			std::cout << "B" << std::endl;
             return;
@@ -79,7 +79,7 @@ void	identify(Base& p)
 	catch (const InvalidCastException&) {}
 	try
 	{
-		if (C* c = dynamic_cast<C*>(&p))
+		if (dynamic_cast<C*>(&p))
 		{
 			std::cout << "C" << std::endl;
 			return;
